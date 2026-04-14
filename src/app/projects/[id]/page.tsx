@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { normalizeImageMimeType } from "@/lib/image-mime";
 import type { PunchStatus } from "@/lib/punch-item-workflow";
 import { isPunchStatus } from "@/lib/punch-item-workflow";
 import { nextStatuses, statusLabel } from "@/lib/punch-item-ui";
@@ -164,7 +165,7 @@ export default function ProjectDetailPage() {
                 const base64 = await fileToBase64(photoFile);
                 const up = await uploadPhoto.mutateAsync({
                   fileName: photoFile.name,
-                  mimeType: photoFile.type || "application/octet-stream",
+                  mimeType: normalizeImageMimeType(photoFile),
                   base64,
                 });
                 photoUrl = up.url;
