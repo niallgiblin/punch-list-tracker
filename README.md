@@ -2,7 +2,7 @@
 
 Construction **punch list** app: defects are created, assigned, moved through a fixed workflow, and summarized on a dashboard.
 
-**Live demo:** _Add your Vercel URL after deploy._
+**Live URL:** https://punch-list-tracker-nu.vercel.app/
 
 ## Stack
 
@@ -65,30 +65,8 @@ Implemented in `src/lib/punch-item-workflow.ts` and enforced in `punchItem.trans
 
 Status changes are **not** applied through arbitrary `update` fields; use **Change status** (or the `transitionStatus` API) so rules stay centralized.
 
-## Deploy (Vercel + Supabase)
 
-1. Push this repo to **GitHub** (public for the assignment).
-2. **Vercel:** import the repo, set the same env vars as production (especially `DATABASE_URL`, `SUPABASE_*`).
-3. Run migrations against production:
-
-   ```bash
-   DATABASE_URL="your-prod-url" npx prisma migrate deploy
-   ```
-
-4. Smoke test: create project, add items, transition statuses, open dashboard, optional photo upload.
-
-## Scripts
-
-| Script            | Purpose                |
-|-------------------|------------------------|
-| `npm run dev`     | Dev server             |
-| `npm run build`   | `prisma generate` + production build |
-| `npm run db:deploy` | Apply migrations (CI/prod) |
-| `npm run db:migrate` | Create/apply migrations (dev) |
-| `npm run db:seed` | Seed demo project + items |
-| `npm run db:studio` | Prisma Studio        |
-
-## How I’d enhance
+## Future Enhancements
 
 - **Supabase Auth** + RLS so each tenant only sees their projects and the API is locked down per-user.
 - **Audit log** (`updatedAt`, who changed status, optional comment on reopen) — critical for construction accountability.
@@ -100,4 +78,4 @@ Status changes are **not** applied through arbitrary `update` fields; use **Chan
 
 ## AI usage
 
-This project was scaffolded and implemented with **Cursor / Claude** (Next.js, Prisma, tRPC, UI). One concrete correction: the first **Prisma 7** init used a schema shape that moved `DATABASE_URL` out of `schema.prisma`; for speed and compatibility with standard tutorials, the stack was pinned to **Prisma 5** with a classic `datasource` URL in `schema.prisma`, which keeps `prisma migrate` and `PrismaClient` straightforward for a take-home.
+This project was scaffolded and implemented with **Cursor / Claude** (Next.js, Prisma, tRPC, UI). One concrete correction: the first **Prisma 7** init used a schema shape that moved `DATABASE_URL` out of `schema.prisma`; for speed and compatibility with standard tutorials, the stack was pinned to **Prisma 5** with a classic `datasource` URL in `schema.prisma`, which keeps `prisma migrate` and `PrismaClient` straightforward for this assignment.
